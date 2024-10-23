@@ -11,7 +11,9 @@ export default class Yatzy {
 
     public yatzy = (): number => this.dices.every(dice => dice === this.dices[0]) ? 50 : 0;
 
-    static score_pair(d1: number, d2: number, d3: number, d4: number, d5: number): number {
+    public scorePair(): number {
+        this.dices
+            .
         var counts = [0, 0, 0, 0, 0, 0, 0, 0, 0];
         counts[d1 - 1]++;
         counts[d2 - 1]++;
@@ -140,4 +142,9 @@ export default class Yatzy {
         this.dices
             .filter((dice) => filter === undefined || dice === filter)
             .reduce((acc, current) => acc + current, 0);
+
+    private countBy = (): Map<number, number> => this.dices.reduce((acc, current) => {
+        acc.set(current, (acc.get(current) || 0) + 1)
+        return acc;
+    }, new Map<number, number>());
 }
