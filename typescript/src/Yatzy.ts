@@ -19,38 +19,6 @@ export default class Yatzy {
         return 0;
     }
 
-    static ones(d1: number, d2: number, d3: number, d4: number, d5: number): number {
-        var sum = 0;
-        if (d1 == 1) sum++;
-        if (d2 == 1) sum++;
-        if (d3 == 1) sum++;
-        if (d4 == 1) sum++;
-        if (d5 == 1) sum++;
-
-        return sum;
-    }
-
-    static twos(d1: number, d2: number, d3: number, d4: number, d5: number): number {
-        var sum = 0;
-        if (d1 == 2) sum += 2;
-        if (d2 == 2) sum += 2;
-        if (d3 == 2) sum += 2;
-        if (d4 == 2) sum += 2;
-        if (d5 == 2) sum += 2;
-        return sum;
-    }
-
-    static threes(d1: number, d2: number, d3: number, d4: number, d5: number): number {
-        var s;
-        s = 0;
-        if (d1 == 3) s += 3;
-        if (d2 == 3) s += 3;
-        if (d3 == 3) s += 3;
-        if (d4 == 3) s += 3;
-        if (d5 == 3) s += 3;
-        return s;
-    }
-
     static score_pair(d1: number, d2: number, d3: number, d4: number, d5: number): number {
         var counts = [0, 0, 0, 0, 0, 0, 0, 0, 0];
         counts[d1 - 1]++;
@@ -164,32 +132,22 @@ export default class Yatzy {
         return args.length === 5
     }
 
-    chance(): number {
-        return this.dices.reduce((acc,current) => acc + current, 0)
-    }
+    public chance = (): number => this.sum()
 
-    fours(): number {
-        var sum;
-        sum = 0;
-        for (let at = 0; at != 5; at++) {
-            if (this.dices[at] == 4) {
-                sum += 4;
-            }
-        }
-        return sum;
-        return this.dices.filter().reduce((acc,current) => acc + current, 0)
-    }
+    public ones = (): number => this.sum(1)
 
-    fives(): number {
-        let s = 0;
-        var i;
-        for (i = 0; i < this.dices.length; i++) if (this.dices[i] == 5) s = s + 5;
-        return s;
-    }
+    public twos = (): number => this.sum(2)
 
-    sixes(): number {
-        let sum = 0;
-        for (var at = 0; at < this.dices.length; at++) if (this.dices[at] == 6) sum = sum + 6;
-        return sum;
-    }
+    public threes = (): number => this.sum(3)
+
+    public fours = (): number => this.sum(4)
+
+    public fives = (): number => this.sum(5)
+
+    public sixes = (): number => this.sum(6)
+
+    private sum = (filter?: number): number =>
+        this.dices
+            .filter((dice) => filter === undefined || dice === filter)
+            .reduce((acc, current) => acc + current, 0);
 }
