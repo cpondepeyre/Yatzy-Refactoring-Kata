@@ -2,22 +2,14 @@ export default class Yatzy {
     private dices: number[];
 
     constructor(...args: number[]) {
-        if (Yatzy.checkArg(...args)) {
+        if (this.checkArg(...args)) {
             this.dices = [...args];
         } else {
-            throw new Error("Fuck off")
+            throw new Error("Fuck off");
         }
     }
 
-    static yatzy(...args: number[]): number {
-        var counts = [0, 0, 0, 0, 0, 0, 0, 0];
-        for (var i = 0; i != args.length; ++i) {
-            var die = args[i];
-            counts[die - 1]++;
-        }
-        for (i = 0; i != 6; i++) if (counts[i] == 5) return 50;
-        return 0;
-    }
+    public yatzy = (): number => this.dices.every(dice => dice === this.dices[0]) ? 50 : 0;
 
     static score_pair(d1: number, d2: number, d3: number, d4: number, d5: number): number {
         var counts = [0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -128,23 +120,21 @@ export default class Yatzy {
         else return 0;
     }
 
-    private static checkArg = (...args: number[]): boolean => {
-        return args.length === 5
-    }
+    private checkArg = (...args: number[]): boolean => args.length === 5;
 
-    public chance = (): number => this.sum()
+    public chance = (): number => this.sum();
 
-    public ones = (): number => this.sum(1)
+    public ones = (): number => this.sum(1);
 
-    public twos = (): number => this.sum(2)
+    public twos = (): number => this.sum(2);
 
-    public threes = (): number => this.sum(3)
+    public threes = (): number => this.sum(3);
 
-    public fours = (): number => this.sum(4)
+    public fours = (): number => this.sum(4);
 
-    public fives = (): number => this.sum(5)
+    public fives = (): number => this.sum(5);
 
-    public sixes = (): number => this.sum(6)
+    public sixes = (): number => this.sum(6);
 
     private sum = (filter?: number): number =>
         this.dices

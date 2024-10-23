@@ -11,32 +11,32 @@ describe('Chance', () => {
 
 describe('Yatzy', () => {
     it('scores 50', () => {
-        assert.strictEqual(50, Yatzy.yatzy(4, 4, 4, 4, 4));
-        assert.strictEqual(50, Yatzy.yatzy(6, 6, 6, 6, 6));
-        assert.strictEqual(0, Yatzy.yatzy(6, 6, 6, 6, 3));
+        assert.strictEqual(50, new Yatzy(4, 4, 4, 4, 4).yatzy());
+        assert.strictEqual(50, new Yatzy(6, 6, 6, 6, 6).yatzy());
+        assert.strictEqual(0, new Yatzy(6, 6, 6, 6, 3).yatzy());
     });
 });
 
 describe('Ones', () => {
     it('score the sum of 1s', () => {
-        assert.strictEqual(1, Yatzy.ones(1, 2, 3, 4, 5));
-        assert.strictEqual(2, Yatzy.ones(1, 2, 1, 4, 5));
-        assert.strictEqual(0, Yatzy.ones(6, 2, 2, 4, 5));
-        assert.strictEqual(4, Yatzy.ones(1, 2, 1, 1, 1));
+        assert.strictEqual(1, new Yatzy(1, 2, 3, 4, 5).ones());
+        assert.strictEqual(2, new Yatzy(1, 2, 1, 4, 5).ones());
+        assert.strictEqual(0, new Yatzy(6, 2, 2, 4, 5).ones());
+        assert.strictEqual(4, new Yatzy(1, 2, 1, 1, 1).ones());
     });
 });
 
 describe('Twos', () => {
     it('score the sum of 2s', () => {
-        assert.strictEqual(4, Yatzy.twos(1, 2, 3, 2, 6));
-        assert.strictEqual(10, Yatzy.twos(2, 2, 2, 2, 2));
+        assert.strictEqual(4, new Yatzy(1, 2, 3, 2, 6).twos());
+        assert.strictEqual(10, new Yatzy(2, 2, 2, 2, 2).twos());
     });
 });
 
 describe('Threes', () => {
     it('score the sum of 3s', () => {
-        assert.strictEqual(6, Yatzy.threes(1, 2, 3, 2, 3));
-        assert.strictEqual(12, Yatzy.threes(2, 3, 3, 3, 3));
+        assert.strictEqual(6, new Yatzy(1, 2, 3, 2, 3).threes());
+        assert.strictEqual(12, new Yatzy(2, 3, 3, 3, 3).threes());
     });
 });
 
