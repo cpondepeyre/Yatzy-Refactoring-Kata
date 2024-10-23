@@ -1,9 +1,11 @@
 export default class Yatzy {
     private dices: number[];
+    private dicesByValue: Map<number, number>;
 
     constructor(...args: number[]) {
         if (this.checkArg(...args)) {
             this.dices = [...args];
+            this.dicesByValue = this.countBy();
         } else {
             throw new Error("Fuck off");
         }
@@ -12,17 +14,11 @@ export default class Yatzy {
     public yatzy = (): number => this.dices.every(dice => dice === this.dices[0]) ? 50 : 0;
 
     public scorePair(): number {
-        this.dices
-            .
-        var counts = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-        counts[d1 - 1]++;
-        counts[d2 - 1]++;
-        counts[d3 - 1]++;
-        counts[d4 - 1]++;
-        counts[d5 - 1]++;
-        var at;
-        for (at = 0; at != 6; at++) if (counts[6 - at - 1] >= 2) return (6 - at) * 2;
-        return 0;
+        const numbers = Array.from(this.dicesByValue.entries())
+            .filter(entry => entry[1] >= 2)
+            .map(entry => entry[0])
+            .sort();
+        return numbers.length ? numbers[numbers.length - 1] * 2 : 0;
     }
 
     static two_pair(d1: number, d2: number, d3: number, d4: number, d5: number): number {
@@ -143,8 +139,9 @@ export default class Yatzy {
             .filter((dice) => filter === undefined || dice === filter)
             .reduce((acc, current) => acc + current, 0);
 
-    private countBy = (): Map<number, number> => this.dices.reduce((acc, current) => {
-        acc.set(current, (acc.get(current) || 0) + 1)
-        return acc;
-    }, new Map<number, number>());
+    private countBy = (): Map<number, number> =>
+        this.dices.reduce((acc, current) => {
+            acc.set(current, (acc.get(current) || 0) + 1);
+            return acc;
+        }, new Map<number, number>());
 }

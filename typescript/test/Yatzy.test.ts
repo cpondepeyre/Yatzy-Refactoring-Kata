@@ -69,6 +69,7 @@ describe('One pair', () => {
         assert.strictEqual(6, new Yatzy(3, 4, 3, 5, 6).scorePair());
         assert.strictEqual(10, new Yatzy(5, 3, 3, 3, 5).scorePair());
         assert.strictEqual(12, new Yatzy(5, 3, 6, 6, 5).scorePair());
+        assert.strictEqual(0, new Yatzy(2, 3, 6, 1, 5).scorePair());
     });
 });
 
