@@ -1,11 +1,16 @@
 export default class Yatzy {
     private dices: number[];
     private dicesByValue: Map<number, number>;
+    private pairs: number[];
 
     constructor(...args: number[]) {
         if (this.checkArg(...args)) {
             this.dices = [...args];
             this.dicesByValue = this.countBy();
+            this.pairs = Array.from(this.dicesByValue.entries())
+                .filter(entry => entry[1] >= 2)
+                .map(entry => entry[0])
+                .sort()
         } else {
             throw new Error("Fuck off");
         }
@@ -13,31 +18,10 @@ export default class Yatzy {
 
     public yatzy = (): number => this.dices.every(dice => dice === this.dices[0]) ? 50 : 0;
 
-    public scorePair(): number {
-        const numbers = Array.from(this.dicesByValue.entries())
-            .filter(entry => entry[1] >= 2)
-            .map(entry => entry[0])
-            .sort();
-        return numbers.length ? numbers[numbers.length - 1] * 2 : 0;
-    }
+    public scorePair = (): number => this.pairs.length ? this.pairs[this.pairs.length - 1] * 2 : 0;
 
-    static two_pair(d1: number, d2: number, d3: number, d4: number, d5: number): number {
-        var counts = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-        counts[d1 - 1]++;
-        counts[d2 - 1]++;
-        counts[d3 - 1]++;
-        counts[d4 - 1]++;
-        counts[d5 - 1]++;
-        var n = 0;
-        var score = 0;
-        for (let i = 0; i < 6; i += 1)
-            if (counts[6 - i - 1] >= 2) {
-                n++;
-                score += 6 - i;
-            }
-        if (n == 2) return score * 2;
-        else return 0;
-    }
+    public twoPair = (): number => this.pairs.length >= 2 ?
+        this.pairs[this.pairs.length - 1] * 2 + this.pairs[this.pairs.length - 2] * 2 : 0;
 
     static four_of_a_kind(_1: number, _2: number, d3: number, d4: number, d5: number): number {
         var tallies;
